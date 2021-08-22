@@ -1,4 +1,5 @@
-﻿using Mercado.Web.Models;
+﻿using Mercado.Infra.Context;
+using Mercado.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -12,14 +13,18 @@ namespace Mercado.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly MercadoDbContext _db;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, MercadoDbContext db)
         {
             _logger = logger;
+            _db = db;
         }
 
         public IActionResult Index()
         {
+            _db.Cliente.ToList();
+            _db.Produto.ToList();
             return View();
         }
 
