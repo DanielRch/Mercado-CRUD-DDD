@@ -1,11 +1,14 @@
+using Mercado.Infra.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,6 +19,9 @@ namespace Mercado.Web
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            var config = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json").Build();
         }
 
         public IConfiguration Configuration { get; }
@@ -24,6 +30,8 @@ namespace Mercado.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddDbContext<MercadoDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("Mercado")));
+            services.AddScoped<DbContext, MercadoDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
