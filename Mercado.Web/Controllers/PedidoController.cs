@@ -8,34 +8,34 @@ using System.Threading.Tasks;
 
 namespace Mercado.Web.Controllers
 {
-    public class ClienteController : Controller
+    public class PedidoController : Controller
     {
         private readonly MercadoDbContext _db;
 
-        public ClienteController(MercadoDbContext db)
+        public PedidoController(MercadoDbContext db)
         {
             _db = db;
         }
 
-        // GET: ClienteController
+        // GET: PedidoController
         public ActionResult Index()
         {
             return View();
         }
 
-        // GET: ClienteController/Details/5
+        // GET: PedidoController/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: ClienteController/Create
+        // GET: PedidoController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: ClienteController/Create
+        // POST: PedidoController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
@@ -50,13 +50,13 @@ namespace Mercado.Web.Controllers
             }
         }
 
-        // GET: ClienteController/Edit/5
+        // GET: PedidoController/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: ClienteController/Edit/5
+        // POST: PedidoController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -71,13 +71,13 @@ namespace Mercado.Web.Controllers
             }
         }
 
-        // GET: ClienteController/Delete/5
+        // GET: PedidoController/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: ClienteController/Delete/5
+        // POST: PedidoController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
