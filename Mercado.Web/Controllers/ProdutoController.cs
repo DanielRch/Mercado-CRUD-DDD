@@ -39,10 +39,12 @@ namespace Mercado.Web.Controllers
         // POST: PedidoController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Produto produto)
         {
             try
             {
+                _db.Add(produto);
+                _db.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -54,16 +56,22 @@ namespace Mercado.Web.Controllers
         // GET: PedidoController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            return View(ObterIdProduto(id));
         }
 
         // POST: PedidoController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, Produto produtoNovo)
         {
+            var produtoVelho = ObterIdProduto(id);
             try
             {
+                produtoVelho.NomeProduto = produtoNovo.NomeProduto;
+                produtoVelho.Setor = produtoNovo.Setor;
+                produtoVelho.Marca = produtoNovo.Marca;
+                produtoVelho.Valor = produtoNovo.Valor;
+                _db.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -75,16 +83,19 @@ namespace Mercado.Web.Controllers
         // GET: PedidoController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            return View(ObterIdProduto(id));
         }
 
         // POST: PedidoController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id, Produto produto)
         {
+            var produtoExiste = ObterIdProduto(id);
             try
             {
+                _db.Remove(produtoExiste);
+                _db.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             catch
